@@ -7,13 +7,13 @@ data:
 db:
   build: ./mariadb
   ports:
-    - "3306:3306"
+    - "3305:3305"
   volumes_from:
     - data
   environment:
     - DEFAULT_USER=concrete # A user with this name will be created
     - DEFAULT_PASS=concrete
-    - PORT=3306
+    - PORT=3305
 web:
   build: ./apache
   ports:
@@ -27,5 +27,5 @@ web:
     - DB_CLIENT=mysql
     - DB_USER=concrete
     - DB_PASSWORD=concrete
-    - DB_PORT=3306
+    - DB_PORT=3305
     - DB_DATABASE=cms
