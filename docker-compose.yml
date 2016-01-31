@@ -1,0 +1,31 @@
+data:
+  build: ./data
+  volumes:
+    - /var/lib/mysql
+    - /usr/local/apache2/concrete
+#    - /Users/mewm/www/ghost-theme:/var/www/ghost/content/themes/casper This can be added for theme development. Comment out the theme stuff in run-ghost.sh before rebuilding
+db:
+  build: ./mariadb
+  ports:
+    - "3306:3306"
+  volumes_from:
+    - data
+  environment:
+    - DEFAULT_USER=concrete # A user with this name will be created
+    - DEFAULT_PASS=concrete
+    - PORT=3306
+web:
+  build: ./apache
+  ports:
+    - "8080:80"
+  links:
+    - db:database
+  volumes_from:
+    - data
+  environment:
+    - DB_HOST=database
+    - DB_CLIENT=mysql
+    - DB_USER=concrete
+    - DB_PASSWORD=concrete
+    - DB_PORT=3306
+    - DB_DATABASE=cms
