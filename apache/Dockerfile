@@ -30,7 +30,7 @@ RUN echo 'safe_mode = Off' > /etc/php5/apache2/conf.d/safe.ini
 # Copy site into place.
 #ADD ./concrete/ /var/www/html
 ADD ./concrete5.7.5.5.zip /var/www/html/
-RUN unzip /var/www/html/concrete5.7.5.5.zip -d /var/www/html && rm /var/www/html/concrete5.7.5.5.zip && mv /var/www/html/concrete5.7.5.5 /var/www/html/concrete
+RUN unzip /var/www/html/concrete5.7.5.5.zip -d /var/www/html && rm /var/www/html/concrete5.7.5.5.zip && mv /var/www/html/concrete5.7.5.5 /var/www/html/concrete && chown -R www-data:www-data /var/www/html/concrete
 ADD ./index.php /var/www/html/
 
 # Update the default apache site with the config we created.
