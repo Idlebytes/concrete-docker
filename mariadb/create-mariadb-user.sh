@@ -12,4 +12,7 @@ mysql -uroot -e "CREATE USER '$DEFAULT_USER'@'%' IDENTIFIED BY '$DEFAULT_PASS'"
 mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO '$DEFAULT_USER'@'%' WITH GRANT OPTION"
 mysql -uroot -e "CREATE DATABASE cms"
 
+# import existing DB dump dump
+# mysql -uroot cms < /db_dump.sql
+
 mysqladmin -uroot shutdown

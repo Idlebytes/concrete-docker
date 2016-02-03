@@ -17,6 +17,9 @@ ADD create-mariadb-user.sh /create-mariadb-user.sh
 ADD run-mariadb.sh /run-mariadb.sh
 RUN chmod 775 /*.sh
 
+# Copy DB dump file
+# ADD dump.sql /db_dump.sql
+
 # To avoid mysql whining about this variable
 ENV TERM dumb
 
