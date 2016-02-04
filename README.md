@@ -77,3 +77,9 @@ domain-needed
 
 $ sudo systemctl enable dnsmasq
 $ sudo systemctl start dnsmasq
+
+Note: Test whether containers are able to resolve DNS using dnsmasq
+
+$ docker run -t -i --rm debian /bin/bash
+$ apt-get update && apt-get install -y --no-install-recommends dnsutils
+$ dig @<docker0 IP> github.com
