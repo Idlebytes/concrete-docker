@@ -83,3 +83,17 @@ Note: Test whether containers are able to resolve DNS using dnsmasq
 $ docker run -t -i --rm debian /bin/bash
 $ apt-get update && apt-get install -y --no-install-recommends dnsutils
 $ dig @<docker0 IP> github.com
+
+If the DNS resolve fails from container but works from host, check for telnet connectivity from container to host on port 53. If this fails or no route to host, either disable firewall on the host machine or allow port 53 TCP/UDP in firewall
+
+$ systemctl disable firewalld
+$ systemctl stop firewalld
+
+Allow DNS port:
+
+If there is any file inside /etc/firewalld/zones/, like FedoraWorkstation.xml add the below lines and then restart firewalld
+
+<port port="53" protocol="tcp"/>
+<port port="53" protocol="udp"/>
+
+If there is no file there, just copy the appropriate file in /usr/lib/firewalld/zones to /etc/firewalld/zones and edit the copy
