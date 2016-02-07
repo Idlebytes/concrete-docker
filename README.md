@@ -6,7 +6,7 @@ concrete-docker
 This repository hosts content for running concrete5 CMS with MariaDB on docker. Docker compose is used to manage the containers
 
 
-Steps to setup the docker host (The instructions is for Fedora and rpm variants, but you will be easily able to find equivalent commands for Debian)
+Steps to setup the docker host (The instructions is for Fedora 23 and latest rpm variants like RHEL7 and CentOS 7, but you will be easily able to find equivalent commands for Debian)
 
 1. Install git, docker and docker compose packages and start docker process, enable docker service at system boot and run docker as non-root user($USER)
 
@@ -106,3 +106,24 @@ SELinux enforces mandatory access controls and is highly recommended (NOT MANDAT
 2. If Selinux is in disabled state, change it to permissive and look for any SELinux warnings during boot. First fix them before changing to Enforcing, else machine won't start during next reboot
 
 3. If there is no SELinux errors in permissive mode, change to enforcing mode and reboot the system
+
+=========================
+set DNS server for docker
+=========================
+
+We need to force docker to use dnsmasq as dns server for containers
+
+1. Stop the running service
+
+$ sudo systemctl stop docker.service
+
+2. Edit the service file /usr/lib/systemd/system/docker.service and add "--dns 172.17.42.1" to docker start up arguments
+
+$ sudo vi /usr/lib/systemd/system/docker.service
+
+  ExecStart=/usr/bin/docker daemon --dns 172.17.42.1
+
+3. Reload the configuration and start docker service
+
+$ sudo systemctl daemon-reload
+$ sudo systemctl start docker.service
