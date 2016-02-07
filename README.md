@@ -64,19 +64,29 @@ The implementation initially uses container's dynamic IP address to connect to M
 
 Steps to setup dnsmasq
 
-1. Install Dnsmasq on docker host
+1. Run script ./rundns.sh which installs and configures necessary DNS settings mentioned in below points a) to d). No need to run those again, provided below just for informative purposes
+
+----------------------------------------------------------------------------------------------------------------------------
+a) Install Dnsmasq on docker host
 
 $ sudo yum install dnsmasq
 
-2. Configure dnsmasq settings (add below config in /etc/dnsmasq.conf)
+b) Configure dnsmasq settings (add below config in /etc/dnsmasq.conf)
 
 interface=docker0
 domain-needed
 
-3. Start dnsmasq (restart dnsmasq if already running, or kill the running process on port 53 if something already running)
+c) Start dnsmasq (restart dnsmasq if already running, or kill the running process on port 53 if something already running)
 
 $ sudo systemctl enable dnsmasq
 $ sudo systemctl start dnsmasq
+
+d) Enable firewall for DNS in host machine
+
+$ sudo firewall-cmd --zone=$(firewall-cmd --get-active-zones | grep -v grep | grep -v interfaces) --remove-port=53/tcp --permanent
+$ sudo firewall-cmd --zone=$(firewall-cmd --get-active-zones | grep -v grep | grep -v interfaces) --remove-port=53/udp --permanent
+$ sudo firewall-cmd --reload
+----------------------------------------------------------------------------------------------------------------------------
 
 Note: Test whether containers are able to resolve DNS using dnsmasq
 
@@ -84,16 +94,15 @@ $ docker run -t -i --rm debian /bin/bash
 $ apt-get update && apt-get install -y --no-install-recommends dnsutils
 $ dig @<docker0 IP> github.com
 
-If the DNS resolve fails from container but works from host, check for telnet connectivity from container to host on port 53. If this fails or no route to host, either disable firewall on the host machine or allow port 53 TCP/UDP in firewall
 
-$ systemctl disable firewalld
-$ systemctl stop firewalld
+==============
+Enable SELinux
+==============
 
-Allow DNS port:
+SELinux enforces mandatory access controls and is highly recommended (NOT MANDATORY) to run on Fedora, CentOS and RHEL based systems
 
-If there is any file inside /etc/firewalld/zones/, like FedoraWorkstation.xml add the below lines and then restart firewalld
+1. Check SELinux is in Enforcing mode - desired starte
 
-<port port="53" protocol="tcp"/>
-<port port="53" protocol="udp"/>
+2. If Selinux is in disabled state, change it to permissive and look for any SELinux warnings during boot. First fix them before changing to Enforcing, else machine won't start during next reboot
 
-If there is no file there, just copy the appropriate file in /usr/lib/firewalld/zones to /etc/firewalld/zones and edit the copy
+3. If there is no SELinux errors in permissive mode, change to enforcing mode and reboot the system
