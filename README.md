@@ -86,6 +86,8 @@ d) Enable firewall for DNS in host machine
 $ sudo firewall-cmd --zone=$(firewall-cmd --get-active-zones | grep -v grep | grep -v interfaces) --remove-port=53/tcp --permanent
 $ sudo firewall-cmd --zone=$(firewall-cmd --get-active-zones | grep -v grep | grep -v interfaces) --remove-port=53/udp --permanent
 $ sudo firewall-cmd --reload
+
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 Note: Test whether containers are able to resolve DNS using dnsmasq
