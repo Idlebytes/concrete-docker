@@ -3,7 +3,7 @@
 set -x
 
 # Install dnsmasq and SELinux packages
-if ! sudo dnf -y install dnsmasq > /dev/null; then
+if sudo dnf -y install dnsmasq > /dev/null; then
   # DNF available
   sudo dnf -y install dnsmasq
   sudo dnf -y install policycoreutils policycoreutils-python selinux-policy \
