@@ -19,8 +19,8 @@ fi
 
 # install docker-compose if not present
 if ! docker-compose version > /dev/null 2>&1 ; then
-	curl -L https://github.com/docker/compose/releases/download/1.6.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-	chmod +x /usr/local/bin/docker-compose
+	sudo curl -L https://github.com/docker/compose/releases/download/1.6.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
 fi
 
 # Create dnsmasq config file
