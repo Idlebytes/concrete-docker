@@ -14,7 +14,7 @@ else
   sudo yum -y install dnsmasq
   sudo yum -y install policycoreutils policycoreutils-python selinux-policy \
       selinux-policy-targeted libselinux-utils setroubleshoot-server setools \
-      setools-console mcstrans firewalld
+      setools-console mcstrans firewalld bind-utils
 fi
 
 # Create dnsmasq config file
