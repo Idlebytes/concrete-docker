@@ -28,6 +28,9 @@ rm $TMP
 # start dnsmasq with new configuration
 sudo systemctl enable dnsmasq.service && sudo systemctl restart dnsmasq.service
 
+# Start firewalld if not running
+sudo systemctl enable firewalld.service && sudo systemctl restart firewalld.service
+
 # Open firewall of host from containers for DNS query
 sudo firewall-cmd --zone=$(firewall-cmd --get-active-zones | grep -v grep | grep -v interfaces) --remove-port=53/tcp --permanent
 sudo firewall-cmd --zone=$(firewall-cmd --get-active-zones | grep -v grep | grep -v interfaces) --remove-port=53/udp --permanent
