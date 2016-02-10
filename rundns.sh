@@ -8,13 +8,15 @@ if sudo dnf -y install dnsmasq > /dev/null; then
   sudo dnf -y install dnsmasq
   sudo dnf -y install policycoreutils policycoreutils-python selinux-policy \
       selinux-policy-targeted libselinux-utils setroubleshoot-server setools \
-      setools-console mcstrans firewalld
+      setools-console mcstrans firewalld docker-engine
+      https://kojipkgs.fedoraproject.org//packages/docker-compose/1.5.2/4.fc23/noarch/docker-compose-1.5.2-4.fc23.noarch.rpm
 else
   # DNF not available, fallback to yum
   sudo yum -y install dnsmasq
   sudo yum -y install policycoreutils policycoreutils-python selinux-policy \
       selinux-policy-targeted libselinux-utils setroubleshoot-server setools \
-      setools-console mcstrans firewalld bind-utils docker-engine docker-compose
+      setools-console mcstrans firewalld bind-utils docker-engine \
+      https://kojipkgs.fedoraproject.org//packages/docker-compose/1.5.2/4.fc23/noarch/docker-compose-1.5.2-4.fc23.noarch.rpm
 fi
 
 # Create dnsmasq config file
