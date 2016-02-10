@@ -8,13 +8,13 @@ if sudo dnf -y install dnsmasq > /dev/null; then
   sudo dnf -y install dnsmasq
   sudo dnf -y install policycoreutils policycoreutils-python selinux-policy \
       selinux-policy-targeted libselinux-utils setroubleshoot-server setools \
-      setools-console mcstrans
+      setools-console mcstrans firewalld
 else
   # DNF not available, fallback to yum
   sudo yum -y install dnsmasq
   sudo yum -y install policycoreutils policycoreutils-python selinux-policy \
       selinux-policy-targeted libselinux-utils setroubleshoot-server setools \
-      setools-console mcstrans
+      setools-console mcstrans firewalld
 fi
 
 # Create dnsmasq config file
