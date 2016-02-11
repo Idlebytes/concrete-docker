@@ -37,6 +37,10 @@ sudo systemctl enable dnsmasq.service && sudo systemctl restart dnsmasq.service
 # Start firewalld if not running
 sudo systemctl enable firewalld.service && sudo systemctl restart firewalld.service
 
+# set firewall default zone to public and flush iptables
+sudo firewall-cmd --zone=public --change-interface=eth0
+sudo iptables -F
+
 # Open firewall of host from containers for DNS query
 sudo firewall-cmd --zone=$(firewall-cmd --get-active-zones | grep -v grep | grep -v interfaces) --remove-port=53/tcp --permanent
 sudo firewall-cmd --zone=$(firewall-cmd --get-active-zones | grep -v grep | grep -v interfaces) --remove-port=53/udp --permanent
