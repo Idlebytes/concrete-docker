@@ -6,7 +6,7 @@ concrete-docker
 This repository hosts content for running concrete5 CMS with MariaDB on docker. Docker compose is used to manage the containers
 
 
-Steps to setup the docker host (The instructions is for Fedora 23 and latest rpm variants like RHEL7 and CentOS 7, but you will be easily able to find equivalent commands for Debian)
+Steps to setup the docker host (The instructions is for Fedora 23, RHEL7 and CentOS 7, but you will be easily able to find equivalent commands for Debian)
 
 1. Install git, docker and docker compose packages and start docker process, enable docker service at system boot and run docker as non-root user($USER)
 
