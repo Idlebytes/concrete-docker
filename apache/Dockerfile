@@ -36,5 +36,8 @@ ADD ./index.php /var/www/html/
 # Update the default apache site with the config we created.
 ADD ./apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 
+# Remove old PID file if already present
+RUN rm -f /var/run/apache2/apache2.pid
+
 # By default, simply start apache.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
