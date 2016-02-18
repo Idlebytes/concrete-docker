@@ -2,7 +2,7 @@ data:
   build: ./data
   volumes:
     - /var/lib/mysql
-    - /usr/local/apache2/concrete
+    - /var/www/html/concrete
 #    - /Users/mewm/www/ghost-theme:/var/www/ghost/content/themes/casper This can be added for theme development. Comment out the theme stuff in run-ghost.sh before rebuilding
 db:
   build: ./mariadb
